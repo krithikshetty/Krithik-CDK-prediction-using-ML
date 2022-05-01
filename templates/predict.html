@@ -1,0 +1,85 @@
+{% extends 'main.html' %}
+{% block content %}
+    <div class="row"  style="margin-bottom: 477px;">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            {% if pred == 1 %}
+                <div class="jumbotron ">
+  <h1 class="display-4">You have a Chronic Kidney Disease !</h1>
+  <p class="lead">Please Consult the Doctor Immideately. It was too risky without consultation. Make sure of health in your diet.</p>
+  <hr class="my-4">
+  <p>Proper Doctor Consultation Needed.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="https://www.who.int/" role="button">Learn more</a>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('diet') }}" role="button">Diet Plan</a>
+
+  </p>
+</div>
+<div class="jumbotron ">
+<h1 class="display-5">Want to check the stage!</h1>
+  
+<input style="border: 1px solid black;" class="form-control" type="text" id="x" placeholder="Serum Creatinine">
+<br>
+<input style="border: 1px solid black;" class="form-control" type="text" id="y" placeholder="Age">
+<script>
+	
+function cond(){
+	var x=document.getElementById("x").value;
+	var y=document.getElementById("y").value;
+	var m = x ** (-1.154);
+	var n = y ** -0.203;
+	var gfr = 175*m*n;
+	if (gfr>89){
+		window.location.href = "stage1";
+	}
+	else if(gfr>60 && gfr<90){
+		window.location.href = "stage2";
+
+	}
+	else if(gfr>30 && gfr<60){
+		window.location.href = "stage3";
+	}
+	else if(gfr>15 && gfr<30){
+		window.location.href = "stage4";
+	}
+	else if(gfr<15){
+		window.location.href = "stage5";
+	}
+
+
+	else {
+		alert('Invalid Input')
+	}
+}
+</script>
+<p>
+</p>
+<div class="text-center">
+	<button type="button" class="btn btn-primary" onclick="cond()">Predict Stage</button>
+</div>
+<p>
+</p>
+</div>
+
+            {% else %}
+                <div class="jumbotron">
+  <h1 class="display-4">Great! You are Healthy</h1>
+  <p class="lead">You are Absolutely Alright ! There is no Marks for Kidney Disease. Enjoy you life with full of Happiness.</p>
+  <hr class="my-4">
+  <p>Be careful at your health. Nothing is important than your health.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="https://www.who.int/" role="button">Learn more</a>
+  </p>
+</div>
+
+
+            {% endif %}
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"><a href="{{ url_for('home') }}" class="btn btn-block btn-primary">Back to Home</a></div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}
